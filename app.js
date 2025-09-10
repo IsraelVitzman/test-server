@@ -1,14 +1,18 @@
 import express from 'express'
-import Routers from './routing/ruters.js';
-import crus from 'cors'
+import { RouterPosts } from './router/routerPosts.js'
+
+import cors from "cors";
 
 
-const server=express()
-const PORT = 3000
-server.use(express.static('public'));
-server.use(crus())
+const PORT = process.env.PORT || 3000;
+const server = express()
+
 server.use(express.json())
-server.use("/post" ,Routers())
-server.listen(PORT,()=>{
-    console.log("server lisining");    
-})
+
+server.use(cors());
+server.use('/post', RouterPosts())
+
+
+server.listen(PORT, () => {
+    console.log(`Server is listening on port ${PORT}...`);
+});
